@@ -14,3 +14,11 @@
 CURRENT_YEAR = 2026
 
 # TODO: Twój kod poniżej
+
+first_name = input("Podaj imię: ")
+last_name = input("Podaj nazwisko: ")
+birth_year = int(input("Podaj rok urodzenia: "))
+
+age = CURRENT_YEAR - birth_year
+
+print(f"Nazywam się {first_name} {last_name} i w {CURRENT_YEAR} roku kończę {age} lat.")
