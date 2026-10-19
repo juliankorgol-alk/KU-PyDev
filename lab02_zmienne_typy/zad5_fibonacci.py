@@ -9,3 +9,13 @@
 # Wskazówka: a, b = b, a + b
 
 # TODO: Twój kod poniżej
+
+n = int(input("Podaj n: "))
+
+a, b = 0, 1
+terms = []
+for _ in range(n):
+    terms.append(str(a))
+    a, b = b, a + b
+
+print(" ".join(terms))
