@@ -8,3 +8,21 @@
 #   - inny operator         -> "Nieznany operator"
 
 # TODO: Twój kod poniżej
+
+a = float(input("Podaj pierwszą liczbę: "))
+op = input("Podaj operator (+, -, *, /): ").strip()
+b = float(input("Podaj drugą liczbę: "))
+
+if op == "+":
+    print(f"{a} + {b} = {a + b}")
+elif op == "-":
+    print(f"{a} - {b} = {a - b}")
+elif op == "*":
+    print(f"{a} * {b} = {a * b}")
+elif op == "/":
+    if b == 0:
+        print("Nie można dzielić przez zero")
+    else:
+        print(f"{a} / {b} = {a / b}")
+else:
+    print("Nieznany operator")
