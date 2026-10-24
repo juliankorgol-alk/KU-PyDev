@@ -22,3 +22,31 @@ SEATS_PER_ROW = 8
 reservations = []
 
 # TODO: Twój kod poniżej
+
+while True:
+    parts = input("Polecenie: ").split()
+    command = parts[0] if parts else ""
+
+    if command in ("rezerwuj", "anuluj"):
+        seat = (int(parts[1]), int(parts[2]))
+        row, number = seat
+        if command == "rezerwuj":
+            if not (1 <= row <= ROWS and 1 <= number <= SEATS_PER_ROW):
+                print("Nie ma takiego miejsca")
+            elif seat in reservations:
+                print(f"Miejsce {seat} jest zajęte")
+            else:
+                reservations.append(seat)
+                print(f"Zarezerwowano {seat}")
+        else:
+            if seat in reservations:
+                reservations.remove(seat)
+                print(f"Anulowano {seat}")
+            else:
+                print("Brak takiej rezerwacji")
+    elif command == "lista":
+        print(sorted(reservations))
+    elif command == "wolne":
+        print(f"Wolne miejsca: {ROWS * SEATS_PER_ROW - len(reservations)}")
+    elif command == "koniec":
+        break
