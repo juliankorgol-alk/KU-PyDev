@@ -16,3 +16,21 @@ import random
 SECRET = int(os.environ.get("SEKRET", random.randint(1, 100)))
 
 # TODO: Twój kod poniżej (pętla while)
+
+attempts = 0
+
+while True:
+    text = input("Twój strzał: ").strip()
+    if not text.isdigit():
+        print("To nie jest liczba")
+        continue
+
+    guess = int(text)
+    attempts += 1
+    if guess < SECRET:
+        print("Za mało!")
+    elif guess > SECRET:
+        print("Za dużo!")
+    else:
+        print(f"Brawo! Zgadłeś w {attempts} próbach.")
+        break
