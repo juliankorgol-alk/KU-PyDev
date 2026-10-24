@@ -14,3 +14,14 @@
 # Wskazówka: [int(x) for x in ...] poznasz później – na razie zbuduj listę pętlą for.
 
 # TODO: Twój kod poniżej
+
+numbers = []
+for text in input("Podaj liczby oddzielone spacjami: ").split():
+    numbers.append(int(text))
+
+print(f"Pierwsze 3: {numbers[:3]}")
+print(f"Ostatnie 3: {numbers[-3:]}")
+print(f"Co drugi: {numbers[::2]}")
+print(f"Odwrócona: {numbers[::-1]}")
+print(f"Posortowana: {sorted(numbers)}")
+print(f"Min: {min(numbers)}, max: {max(numbers)}, suma: {sum(numbers)}")
