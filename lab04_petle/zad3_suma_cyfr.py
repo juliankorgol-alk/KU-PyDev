@@ -11,3 +11,18 @@
 # Uwaga: liczba 0 ma jedną cyfrę.
 
 # TODO: Twój kod poniżej
+
+n = int(input("Podaj nieujemną liczbę całkowitą: "))
+
+digit_sum = 0
+digit_count = 0
+
+while True:
+    digit_sum += n % 10
+    digit_count += 1
+    n //= 10
+    if n == 0:
+        break
+
+print(f"Suma cyfr: {digit_sum}")
+print(f"Liczba cyfr: {digit_count}")
