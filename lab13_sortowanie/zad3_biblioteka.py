@@ -21,14 +21,16 @@ def sort_books(books, key, descending=False):
 
     Wskazówka: sorted(books, key=lambda book: book[key], reverse=descending)
     """
-    raise NotImplementedError
+    if key not in KEYS:
+        raise ValueError(f"Nieznany klucz: {key}")
+    return sorted(books, key=lambda book: book[key], reverse=descending)
 
 
 def sort_by_author_then_year(books):
     """Sortowanie po autorze, a w obrębie autora – po roku (klucz będący KROTKĄ)."""
-    raise NotImplementedError
+    return sorted(books, key=lambda book: (book["author"], book["year"]))
 
 
 def newest(books, n):
     """n najnowszych książek, od najnowszej."""
-    raise NotImplementedError
+    return sorted(books, key=lambda book: book["year"], reverse=True)[:n]

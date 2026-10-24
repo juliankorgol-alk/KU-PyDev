@@ -7,26 +7,28 @@ symbolowi operatora FUNKCJĘ (nie wynik!) – funkcje w Pythonie są obiektami.
 
 def add(a, b):
     """Zwraca a + b."""
-    raise NotImplementedError
+    return a + b
 
 
 def subtract(a, b):
     """Zwraca a - b."""
-    raise NotImplementedError
+    return a - b
 
 
 def multiply(a, b):
     """Zwraca a * b."""
-    raise NotImplementedError
+    return a * b
 
 
 def divide(a, b):
     """Zwraca a / b albo None, gdy b == 0."""
-    raise NotImplementedError
+    if b == 0:
+        return None
+    return a / b
 
 
 # TODO: uzupełnij słownik:  "+" -> add, "-" -> subtract, "*" -> multiply, "/" -> divide
-OPERATIONS = {}
+OPERATIONS = {"+": add, "-": subtract, "*": multiply, "/": divide}
 
 
 def calculate(a, op, b):
@@ -35,7 +37,10 @@ def calculate(a, op, b):
     Dla nieznanego operatora zwraca None.
     Wskazówka: func = OPERATIONS.get(op); potem func(a, b).
     """
-    raise NotImplementedError
+    func = OPERATIONS.get(op)
+    if func is None:
+        return None
+    return func(a, b)
 
 
 def main():

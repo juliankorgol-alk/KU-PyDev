@@ -10,12 +10,20 @@ from zad1_sortowania import bubble_sort, selection_sort
 
 def time_function(sort_func, n, repeats=3):
     """NAJKRÓTSZY z `repeats` czasów sortowania losowej listy n liczb (time.perf_counter)."""
-    raise NotImplementedError
+    best = None
+    for _ in range(repeats):
+        data = [random.random() for _ in range(n)]
+        start = time.perf_counter()
+        sort_func(data)
+        elapsed = time.perf_counter() - start
+        if best is None or elapsed < best:
+            best = elapsed
+    return best
 
 
 def growth_ratio(sort_func, n):
     """Iloraz czasu dla 2n i dla n. Dla O(n²) spodziewaj się ok. 4, dla O(n log n) – nieco ponad 2."""
-    raise NotImplementedError
+    return time_function(sort_func, 2 * n) / time_function(sort_func, n)
 
 
 if __name__ == "__main__":

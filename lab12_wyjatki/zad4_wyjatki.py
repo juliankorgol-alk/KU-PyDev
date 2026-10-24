@@ -9,6 +9,11 @@ class InsufficientFundsError(Exception):
       - wywoła super().__init__(f"Brak środków: saldo {balance}, żądano {amount}")
     """
 
+    def __init__(self, balance, amount):
+        self.balance = balance
+        self.amount = amount
+        super().__init__(f"Brak środków: saldo {balance}, żądano {amount}")
+
 
 def withdraw(balance, amount):
     """Zwraca saldo po wypłacie.
@@ -16,7 +21,11 @@ def withdraw(balance, amount):
     - amount <= 0       -> ValueError("Kwota musi być dodatnia")
     - amount > balance  -> InsufficientFundsError(balance, amount)
     """
-    raise NotImplementedError
+    if amount <= 0:
+        raise ValueError("Kwota musi być dodatnia")
+    if amount > balance:
+        raise InsufficientFundsError(balance, amount)
+    return balance - amount
 
 
 def percent(part, whole):
@@ -26,4 +35,5 @@ def percent(part, whole):
         assert whole > 0, "Całość musi być dodatnia"
     Asercje chronią przed błędami PROGRAMISTY, nie użytkownika.
     """
-    raise NotImplementedError
+    assert whole > 0, "Całość musi być dodatnia"
+    return part / whole * 100

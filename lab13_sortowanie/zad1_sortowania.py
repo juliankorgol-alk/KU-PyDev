@@ -10,9 +10,24 @@ def bubble_sort(values):
 
     Zamiana:  a[i], a[i + 1] = a[i + 1], a[i]
     """
-    raise NotImplementedError
+    result = list(values)
+    swapped = True
+    while swapped:
+        swapped = False
+        for i in range(len(result) - 1):
+            if result[i] > result[i + 1]:
+                result[i], result[i + 1] = result[i + 1], result[i]
+                swapped = True
+    return result
 
 
 def selection_sort(values):
     """Sortowanie przez wybieranie: dla każdej pozycji i znajdź minimum w części a[i:] i zamień je z a[i]."""
-    raise NotImplementedError
+    result = list(values)
+    for i in range(len(result)):
+        smallest = i
+        for j in range(i + 1, len(result)):
+            if result[j] < result[smallest]:
+                smallest = j
+        result[i], result[smallest] = result[smallest], result[i]
+    return result

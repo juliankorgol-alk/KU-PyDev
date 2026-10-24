@@ -10,7 +10,15 @@ def parse_age(text):
     Wskazówka:  raise ValueError("...")   (a int() sam zgłasza ValueError dla "abc" –
     złap go i zgłoś własny, czytelny komunikat)
     """
-    raise NotImplementedError
+    try:
+        age = int(text)
+    except ValueError:
+        raise ValueError("Wiek musi być liczbą całkowitą") from None
+    if age < 0:
+        raise ValueError("Wiek nie może być ujemny")
+    if age > 150:
+        raise ValueError("Wiek nie może przekraczać 150 lat")
+    return age
 
 
 def read_int(prompt, low, high, input_func=input, output=print):
@@ -23,7 +31,15 @@ def read_int(prompt, low, high, input_func=input, output=print):
 
     Parametry input_func i output pozwalają testom podstawić atrapy zamiast klawiatury i ekranu.
     """
-    raise NotImplementedError
+    while True:
+        try:
+            value = int(input_func(prompt))
+        except ValueError:
+            output("Podaj liczbę całkowitą")
+            continue
+        if low <= value <= high:
+            return value
+        output(f"Wartość spoza zakresu {low}–{high}")
 
 
 if __name__ == "__main__":

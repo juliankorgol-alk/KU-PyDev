@@ -14,22 +14,32 @@ def load_grades(path):
             for row in csv.DictReader(f):
                 row["imie"], row["nazwisko"], row["ocena"]
     """
-    raise NotImplementedError
+    grades = []
+    with open(path, encoding="utf-8", newline="") as f:
+        for row in csv.DictReader(f):
+            grades.append((f"{row['imie']} {row['nazwisko']}", float(row["ocena"])))
+    return grades
 
 
 def average(grades):
     """Średnia ocen; dla pustej listy zwraca 0.0."""
-    raise NotImplementedError
+    if not grades:
+        return 0.0
+    return sum(grade for _, grade in grades) / len(grades)
 
 
 def best(grades):
     """Zwraca krotkę studenta z najwyższą oceną (przy remisie – pierwszego z listy)."""
-    raise NotImplementedError
+    return max(grades, key=lambda student: student[1])
 
 
 def count_passing(grades, threshold=3.0):
     """Ile ocen jest >= threshold. Parametr ma wartość domyślną 3.0."""
-    raise NotImplementedError
+    count = 0
+    for _, grade in grades:
+        if grade >= threshold:
+            count += 1
+    return count
 
 
 def main():

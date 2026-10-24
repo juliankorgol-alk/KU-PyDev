@@ -13,7 +13,9 @@ def log(message, path):
       - datetime.now().strftime("%Y-%m-%d %H:%M:%S")
       - zawsze podawaj encoding="utf-8"
     """
-    raise NotImplementedError
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(path, "a", encoding="utf-8") as f:
+        f.write(f"{timestamp} | {message}\n")
 
 
 def read_log(path):
@@ -21,9 +23,13 @@ def read_log(path):
 
     Wskazówka: pathlib.Path(path).exists() albo try/except FileNotFoundError.
     """
-    raise NotImplementedError
+    try:
+        with open(path, encoding="utf-8") as f:
+            return f.read().splitlines()
+    except FileNotFoundError:
+        return []
 
 
 def count_entries(path):
     """Liczba wpisów w logu."""
-    raise NotImplementedError
+    return len(read_log(path))

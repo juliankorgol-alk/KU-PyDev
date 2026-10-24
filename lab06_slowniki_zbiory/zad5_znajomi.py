@@ -8,3 +8,11 @@
 #     Tylko jednej z osób: Ala, Ola, Piotr     <- różnica symetryczna (^)
 
 # TODO: Twój kod poniżej
+
+first = set(input("Znajomi pierwszej osoby: ").split())
+second = set(input("Znajomi drugiej osoby: ").split())
+
+print("Wspólni: " + ", ".join(sorted(first & second)))
+print("Wszyscy: " + ", ".join(sorted(first | second)))
+print("Tylko pierwszej osoby: " + ", ".join(sorted(first - second)))
+print("Tylko jednej z osób: " + ", ".join(sorted(first ^ second)))

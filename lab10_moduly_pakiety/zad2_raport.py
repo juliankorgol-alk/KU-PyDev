@@ -5,6 +5,9 @@ Zaimportuj funkcje z pakietu geometria (spróbuj różnych stylów importu!):
     from geometria import plaskie
     from geometria.plaskie import circle_area
 """
+import geometria
+from geometria import plaskie
+from geometria.plaskie import circle_area
 
 
 def total_area(shapes):
@@ -14,7 +17,16 @@ def total_area(shapes):
         ("trójkąt", a, b, c)
     Nieznane figury pomija.
     """
-    raise NotImplementedError
+    total = 0
+    for shape in shapes:
+        name = shape[0]
+        if name == "koło":
+            total += circle_area(shape[1])
+        elif name == "prostokąt":
+            total += plaskie.rectangle_area(shape[1], shape[2])
+        elif name == "trójkąt":
+            total += geometria.triangle_area(shape[1], shape[2], shape[3])
+    return total
 
 
 if __name__ == "__main__":

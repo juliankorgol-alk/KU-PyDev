@@ -16,7 +16,28 @@ def calculate(a_text, op, b_text):
 
     Wskazówka: jeden blok try i kilka klauzul except.
     """
-    raise NotImplementedError
+    try:
+        a = float(a_text)
+        b = float(b_text)
+        if op == "+":
+            result = a + b
+        elif op == "-":
+            result = a - b
+        elif op == "*":
+            result = a * b
+        elif op == "/":
+            result = a / b
+        elif op == "**":
+            result = a ** b
+        else:
+            return "Błąd: nieznany operator"
+    except ZeroDivisionError:
+        return "Błąd: dzielenie przez zero"
+    except ValueError:
+        return "Błąd: to nie jest liczba"
+    except OverflowError:
+        return "Błąd: wynik za duży"
+    return str(result)
 
 
 if __name__ == "__main__":

@@ -14,4 +14,15 @@ def sum_numbers(path):
         except ValueError:
             skipped += 1
     """
-    raise NotImplementedError
+    total = 0.0
+    skipped = 0
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                total += float(line)
+            except ValueError:
+                skipped += 1
+    return total, skipped

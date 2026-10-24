@@ -11,26 +11,36 @@ def parse_date(text):
 
     Wskazówka: datetime.strptime(text, "%d.%m.%Y").date()
     """
-    raise NotImplementedError
+    return datetime.strptime(text, "%d.%m.%Y").date()
 
 
 def days_until(event, today):
     """Ile dni zostało do wydarzenia (ujemne – gdy już minęło). Odejmowanie dat daje timedelta."""
-    raise NotImplementedError
+    return (event - today).days
 
 
 def describe(name, event, today):
     """Opis wydarzenia:
         "Wigilia: za 2 dni"   |   "Lab 11: dziś!"   |   "Lab 10: 7 dni temu"
     """
-    raise NotImplementedError
+    days = days_until(event, today)
+    if days > 0:
+        return f"{name}: za {days} dni"
+    if days == 0:
+        return f"{name}: dziś!"
+    return f"{name}: {-days} dni temu"
 
 
 def upcoming(events, today):
     """Ze słownika nazwa -> data zwraca listę (nazwa, dni) dla wydarzeń dzisiaj i w przyszłości,
     posortowaną od najbliższego.
     """
-    raise NotImplementedError
+    result = []
+    for name, event in events.items():
+        days = days_until(event, today)
+        if days >= 0:
+            result.append((name, days))
+    return sorted(result, key=lambda pair: pair[1])
 
 
 def main():

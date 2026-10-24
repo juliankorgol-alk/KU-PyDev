@@ -10,14 +10,21 @@ def save_contacts(contacts, path):
 
     Użyj json.dump(..., ensure_ascii=False, indent=2), żeby polskie litery były czytelne.
     """
-    raise NotImplementedError
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(contacts, f, ensure_ascii=False, indent=2)
 
 
 def load_contacts(path):
     """Wczytuje słownik z pliku JSON; gdy pliku nie ma – zwraca {}."""
-    raise NotImplementedError
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
 
 
 def add_contact(path, name, phone):
     """Wczytuje kontakty, dodaje/nadpisuje jeden i zapisuje z powrotem."""
-    raise NotImplementedError
+    contacts = load_contacts(path)
+    contacts[name] = phone
+    save_contacts(contacts, path)

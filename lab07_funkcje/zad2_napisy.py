@@ -10,7 +10,7 @@ def normalize_spaces(text):
     'Ala ma kota'
     Wskazówka: text.split() bez argumentu dzieli po dowolnych białych znakach.
     """
-    raise NotImplementedError
+    return " ".join(text.split())
 
 
 def normalize_name(text):
@@ -22,7 +22,7 @@ def normalize_name(text):
     'Anna-Maria Nowak'
     Wskazówka: użyj normalize_spaces() i metody str.title().
     """
-    raise NotImplementedError
+    return normalize_spaces(text).title()
 
 
 def is_palindrome(text):
@@ -32,9 +32,17 @@ def is_palindrome(text):
     True
     Wskazówka: char.isalpha(), text[::-1]
     """
-    raise NotImplementedError
+    letters = ""
+    for char in text.lower():
+        if char.isalpha():
+            letters += char
+    return letters == letters[::-1]
 
 
 def count_vowels(text):
     """Liczy samogłoski (także polskie: ą, ę, ó, y) bez względu na wielkość liter."""
-    raise NotImplementedError
+    count = 0
+    for char in text.lower():
+        if char in VOWELS:
+            count += 1
+    return count

@@ -4,12 +4,15 @@ import time
 
 def sum_loop(n):
     """Suma 1 + 2 + ... + n liczona pętlą."""
-    raise NotImplementedError
+    total = 0
+    for i in range(1, n + 1):
+        total += i
+    return total
 
 
 def sum_formula(n):
     """Ta sama suma ze wzoru Gaussa: n(n+1)/2 – wynik jako int (użyj //)."""
-    raise NotImplementedError
+    return n * (n + 1) // 2
 
 
 def measure(func, *args):
@@ -17,7 +20,9 @@ def measure(func, *args):
 
     Do pomiaru użyj time.perf_counter() przed i po wywołaniu.
     """
-    raise NotImplementedError
+    start = time.perf_counter()
+    result = func(*args)
+    return result, time.perf_counter() - start
 
 
 if __name__ == "__main__":

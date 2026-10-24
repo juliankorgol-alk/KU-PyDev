@@ -7,7 +7,7 @@ import math
 
 def mean(values):
     """Średnia arytmetyczna."""
-    raise NotImplementedError
+    return sum(values) / len(values)
 
 
 def median(values):
@@ -15,9 +15,16 @@ def median(values):
 
     NIE zmieniaj listy wejściowej (użyj sorted, nie sort).
     """
-    raise NotImplementedError
+    ordered = sorted(values)
+    n = len(ordered)
+    middle = n // 2
+    if n % 2 == 1:
+        return ordered[middle]
+    return (ordered[middle - 1] + ordered[middle]) / 2
 
 
 def std_dev(values):
     """Odchylenie standardowe z PRÓBY:  sqrt( Σ(x - średnia)² / (n - 1) ).  Użyj math.sqrt."""
-    raise NotImplementedError
+    avg = mean(values)
+    squares = sum((x - avg) ** 2 for x in values)
+    return math.sqrt(squares / (len(values) - 1))

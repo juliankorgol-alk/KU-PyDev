@@ -16,7 +16,8 @@ def convert(text, from_zone, to_zone):
         dt = datetime.strptime(text, FORMAT).replace(tzinfo=ZoneInfo(from_zone))
         dt.astimezone(ZoneInfo(to_zone)).strftime(FORMAT)
     """
-    raise NotImplementedError
+    dt = datetime.strptime(text, FORMAT).replace(tzinfo=ZoneInfo(from_zone))
+    return dt.astimezone(ZoneInfo(to_zone)).strftime(FORMAT)
 
 
 def utc_offset(zone, text):
@@ -24,4 +25,5 @@ def utc_offset(zone, text):
 
     Wskazówka: dt.utcoffset() zwraca timedelta; .total_seconds() / 3600
     """
-    raise NotImplementedError
+    dt = datetime.strptime(text, FORMAT).replace(tzinfo=ZoneInfo(zone))
+    return dt.utcoffset().total_seconds() / 3600

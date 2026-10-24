@@ -6,14 +6,20 @@ DAYS = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota", "n
 
 def weekday_name(day):
     """Polska nazwa dnia tygodnia. Wskazówka: day.weekday() zwraca 0 dla poniedziałku."""
-    raise NotImplementedError
+    return DAYS[day.weekday()]
 
 
 def is_weekend(day):
     """Czy to sobota albo niedziela?"""
-    raise NotImplementedError
+    return day.weekday() >= 5
 
 
 def working_days(start, end):
     """Liczba dni roboczych (pon–pt) od start do end WŁĄCZNIE (bez uwzględniania świąt)."""
-    raise NotImplementedError
+    count = 0
+    day = start
+    while day <= end:
+        if not is_weekend(day):
+            count += 1
+        day += timedelta(days=1)
+    return count

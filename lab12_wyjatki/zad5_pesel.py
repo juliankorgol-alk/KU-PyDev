@@ -15,18 +15,45 @@ class PeselError(ValueError):
 
 
 # TODO: zdefiniuj PeselLengthError, PeselDigitsError, PeselChecksumError dziedziczące po PeselError
+class PeselLengthError(PeselError):
+    """Numer PESEL ma złą długość."""
+
+
+class PeselDigitsError(PeselError):
+    """Numer PESEL zawiera znaki inne niż cyfry."""
+
+
+class PeselChecksumError(PeselError):
+    """Cyfra kontrolna się nie zgadza."""
 
 
 def validate(pesel):
     """Zwraca True albo zgłasza odpowiedni wyjątek (długość, cyfry, suma kontrolna)."""
-    raise NotImplementedError
+    if len(pesel) != 11:
+        raise PeselLengthError(f"PESEL musi mieć 11 cyfr, ma {len(pesel)}")
+    for char in pesel:
+        if char not in "0123456789":
+            raise PeselDigitsError("PESEL może zawierać tylko cyfry")
+    total = 0
+    for digit, weight in zip(pesel, WEIGHTS):
+        total += int(digit) * weight
+    if (10 - total % 10) % 10 != int(pesel[10]):
+        raise PeselChecksumError("Błędna cyfra kontrolna")
+    return True
 
 
 def birth_date(pesel):
     """Data urodzenia zakodowana w numerze."""
-    raise NotImplementedError
+    validate(pesel)
+    year = int(pesel[0:2])
+    month = int(pesel[2:4])
+    day = int(pesel[4:6])
+    centuries = {0: 1900, 20: 2000, 40: 2100, 60: 2200, 80: 1800}
+    offset = month // 20 * 20
+    return date(centuries[offset] + year, month - offset, day)
 
 
 def sex(pesel):
     """ "K" albo "M"."""
-    raise NotImplementedError
+    validate(pesel)
+    return "K" if int(pesel[9]) % 2 == 0 else "M"

@@ -8,7 +8,22 @@ def read_config(path):
     - gdy pliku nie ma, zwraca {},
     - gdy linia nie zawiera "=", zgłasza ValueError("Linia 2: brak znaku =")  (numer linii od 1).
     """
-    raise NotImplementedError
+    try:
+        with open(path, encoding="utf-8") as f:
+            lines = f.read().splitlines()
+    except FileNotFoundError:
+        return {}
+
+    config = {}
+    for number, line in enumerate(lines, start=1):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if "=" not in line:
+            raise ValueError(f"Linia {number}: brak znaku =")
+        key, _, value = line.partition("=")
+        config[key.strip()] = value.strip()
+    return config
 
 
 def read_first_line(path, log):
@@ -17,4 +32,9 @@ def read_first_line(path, log):
     Na początku dopisuje do listy log "start", a w bloku finally – "koniec".
     Wyjątku FileNotFoundError NIE łap – ma polecieć dalej, ale finally i tak się wykona.
     """
-    raise NotImplementedError
+    log.append("start")
+    try:
+        with open(path, encoding="utf-8") as f:
+            return f.readline().rstrip("\n")
+    finally:
+        log.append("koniec")

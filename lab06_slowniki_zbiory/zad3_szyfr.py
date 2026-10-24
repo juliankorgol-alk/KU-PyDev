@@ -14,3 +14,21 @@ ALPHABET = "abcdefghijklmnopqrstuvwxyz"
 SHIFT = 3
 
 # TODO: Twój kod poniżej
+
+encrypt = {}
+decrypt = {}
+for i in range(len(ALPHABET)):
+    letter = ALPHABET[i]
+    shifted = ALPHABET[(i + SHIFT) % 26]
+    encrypt[letter] = shifted
+    decrypt[shifted] = letter
+
+mode = input("Tryb (s – szyfruj, d – deszyfruj): ").strip().lower()
+text = input("Tekst: ").lower()
+
+table = encrypt if mode == "s" else decrypt
+result = ""
+for char in text:
+    result += table.get(char, char)
+
+print(result)

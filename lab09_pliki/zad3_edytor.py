@@ -3,17 +3,22 @@
 
 def read_text(path):
     """Zwraca całą zawartość pliku albo "" gdy plik nie istnieje."""
-    raise NotImplementedError
+    try:
+        with open(path, encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        return ""
 
 
 def append_line(path, line):
     """Dopisuje linię na końcu pliku (ze znakiem nowej linii "\\n")."""
-    raise NotImplementedError
+    with open(path, "a", encoding="utf-8") as f:
+        f.write(line + "\n")
 
 
 def line_count(path):
     """Liczba linii w pliku (0 dla nieistniejącego)."""
-    raise NotImplementedError
+    return len(read_text(path).splitlines())
 
 
 def replace_word(path, old, new):
@@ -22,7 +27,11 @@ def replace_word(path, old, new):
     Zapisuje plik z powrotem i zwraca liczbę dokonanych zamian.
     Wskazówka: text.count(old), text.replace(old, new)
     """
-    raise NotImplementedError
+    text = read_text(path)
+    count = text.count(old)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text.replace(old, new))
+    return count
 
 
 def main():

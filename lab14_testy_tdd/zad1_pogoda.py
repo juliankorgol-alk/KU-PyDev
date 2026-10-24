@@ -15,34 +15,51 @@ BASE_URL = "https://api.open-meteo.com/v1/forecast"
 
 
 def celsius_to_fahrenheit(celsius):
-    raise NotImplementedError
+    return celsius * 9 / 5 + 32
 
 
 def classify(temp):
     """< 0 "mróz", < 10 "zimno", < 20 "umiarkowanie", < 28 "ciepło", w przeciwnym razie "upał"."""
-    raise NotImplementedError
+    if temp < 0:
+        return "mróz"
+    if temp < 10:
+        return "zimno"
+    if temp < 20:
+        return "umiarkowanie"
+    if temp < 28:
+        return "ciepło"
+    return "upał"
 
 
 def parse_forecast(data):
     """Zamienia odpowiedź API na listę słowników [{"day": "2027-01-19", "temp": -2.5}, ...]."""
-    raise NotImplementedError
+    daily = data["daily"]
+    return [{"day": day, "temp": temp} for day, temp in zip(daily["time"], daily["temperature_2m_max"])]
 
 
 def average_temperature(forecast):
     """Średnia z pól "temp"; dla pustej prognozy – ValueError."""
-    raise NotImplementedError
+    if not forecast:
+        raise ValueError("Pusta prognoza")
+    return sum(entry["temp"] for entry in forecast) / len(forecast)
 
 
 def warmest_day(forecast):
     """Krotka (dzień, temperatura) dla najcieplejszego dnia; dla pustej prognozy – ValueError."""
-    raise NotImplementedError
+    if not forecast:
+        raise ValueError("Pusta prognoza")
+    warmest = max(forecast, key=lambda entry: entry["temp"])
+    return warmest["day"], warmest["temp"]
 
 
 def build_url(latitude, longitude, days):
     """Adres zapytania – dokładnie w tej postaci (strefa czasowa zakodowana jako Europe%2FWarsaw):
     https://api.open-meteo.com/v1/forecast?latitude=52.23&longitude=21.01&daily=temperature_2m_max&timezone=Europe%2FWarsaw&forecast_days=3
     """
-    raise NotImplementedError
+    return (
+        f"{BASE_URL}?latitude={latitude}&longitude={longitude}"
+        f"&daily=temperature_2m_max&timezone=Europe%2FWarsaw&forecast_days={days}"
+    )
 
 
 def get_json(url):
@@ -56,7 +73,7 @@ def get_json(url):
 
 def fetch_forecast(latitude, longitude, days=3):
     """Pobiera (get_json) i parsuje (parse_forecast) prognozę."""
-    raise NotImplementedError
+    return parse_forecast(get_json(build_url(latitude, longitude, days)))
 
 
 if __name__ == "__main__":
