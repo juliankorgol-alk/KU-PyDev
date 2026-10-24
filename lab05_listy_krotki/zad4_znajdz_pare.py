@@ -20,3 +20,27 @@ if "BEZ_TASOWANIA" not in os.environ:
 revealed = [False] * len(cards)
 
 # TODO: Twój kod poniżej
+
+moves = 0
+
+while False in revealed:
+    table = []
+    for i in range(len(cards)):
+        table.append(cards[i] if revealed[i] else "?")
+    print(" ".join(table))
+
+    parts = input("Podaj dwie pozycje: ").split()
+    first, second = int(parts[0]), int(parts[1])
+    if first == second:
+        print("Podaj dwie różne karty")
+        continue
+
+    moves += 1
+    if cards[first] == cards[second]:
+        revealed[first] = True
+        revealed[second] = True
+        print("Para!")
+    else:
+        print("Pudło")
+
+print(f"Koniec gry w {moves} ruchach")
