@@ -9,3 +9,8 @@ TODO:
      Wskazówka:  from .plaskie import circle_area, rectangle_area, triangle_area
                  from .bryly import ...
 """
+
+__version__ = "1.0.0"
+
+from .bryly import cuboid_volume, cylinder_volume, sphere_volume
+from .plaskie import circle_area, rectangle_area, triangle_area
